@@ -1,4 +1,6 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+
+import { ApiSudoku } from '@sudoku-angular/api-sudoku';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -904,4 +906,20 @@ nx affected:e2e</pre>
   styles: [],
   encapsulation: ViewEncapsulation.None,
 })
-export class NxWelcomeComponent {}
+export class NxWelcomeComponent implements OnInit {
+
+  constructor(private readonly apiSudoku: ApiSudoku) { }
+
+  ngOnInit(): void {
+    this.apiSudoku.getBoard("medium").subscribe((board) => {
+      this.apiSudoku.solveBoard(board).subscribe((board) => {
+        console.log(board);
+      })
+    });
+
+    return;
+  }
+
+
+
+}

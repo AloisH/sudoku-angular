@@ -6,8 +6,8 @@ import { Observable } from "rxjs";
 
 @Injectable({ providedIn: "root" })
 export class ApiSudoku {
-  readonly baseUrl: string = "https://sugoku.onrender.com/";
-  readonly headersOverride = {
+  private readonly baseUrl: string = "https://sugoku.onrender.com";
+  private readonly headersOverride = {
     'Content-Type': 'application/x-www-form-urlencoded'
   };
 

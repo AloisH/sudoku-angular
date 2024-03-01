@@ -1,0 +1,69 @@
+{
+  "name": "sudoku-angular",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "prefix": "sudoku-angular",
+  "sourceRoot": "apps/sudoku-angular/src",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:application",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/sudoku-angular",
+        "index": "apps/sudoku-angular/src/index.html",
+        "browser": "apps/sudoku-angular/src/main.ts",
+        "polyfills": ["zone.js"],
+        "tsConfig": "apps/sudoku-angular/tsconfig.app.json",
+        "inlineStyleLanguage": "scss",
+        "assets": [
+          "apps/sudoku-angular/src/favicon.ico",
+          "apps/sudoku-angular/src/assets"
+        ],
+        "styles": ["apps/sudoku-angular/src/styles.scss"],
+        "scripts": []
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "2kb",
+              "maximumError": "4kb"
+            }
+          ],
+          "outputHashing": "all"
+        },
+        "development": {
+          "optimization": false,
+          "extractLicenses": false,
+          "sourceMap": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "configurations": {
+        "production": {
+          "buildTarget": "sudoku-angular:build:production"
+        },
+        "development": {
+          "buildTarget": "sudoku-angular:build:development"
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "buildTarget": "sudoku-angular:build"
+      }
+    }
+  }
+}

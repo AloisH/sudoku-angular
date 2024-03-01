@@ -15,7 +15,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@sudoku-angular/api-sudoku": ["libs/api-sudoku/src/index.ts"]
+      "@sudoku-angular/api-sudoku": ["libs/api-sudoku/src/index.ts"],
+      "@sudoku-angular/sudoku-engine": ["libs/sudoku-engine/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

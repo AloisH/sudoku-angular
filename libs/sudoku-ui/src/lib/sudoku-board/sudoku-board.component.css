@@ -31,7 +31,7 @@
 
 .board-cells {
   max-height: 80vh;
-  max-width: min(80vw, 600px);
+  max-width: min(100%, 600px);
 }
 
 .square {
@@ -72,7 +72,11 @@
 }
 
 .selected {
-  background-color: aqua;
+  background-color: rgb(186, 216, 254);
+}
+
+.by-user {
+  color: rgb(95, 95, 254);
 }
 
 .button {
@@ -112,4 +116,12 @@
   padding-top: 1rem;
   display: flex;
   gap: 1rem;
+}
+
+.bottom-keys {
+  padding-top: 1rem;
+  display: flex;
+  max-width: min(100%, 600px);
+  gap: 0.5rem;
+  justify-content: space-between;
 }

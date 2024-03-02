@@ -28,6 +28,8 @@ export class SudokuBoardComponent {
   status: BoardStatus;
   difficulty: BoardDifficulty;
 
+  possibleKey = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
+
   constructor(private sudokuEngine: SudokuEngine) {
     this.sudokuEngine.board$.subscribe((board) => {
       this.board = board.map((col) => col.map((row): BoardCell => ({ value: row, hasDefaultValue: row !== 0 })));
@@ -84,14 +86,17 @@ export class SudokuBoardComponent {
 
   @HostListener('document:keypress', ['$event'])
   handleKeyboardEvent(event: KeyboardEvent) {
+    this.setNewValueToSelectedCell(event.key);
+  }
+
+  setNewValueToSelectedCell(key: string) {
     if (!this.selectedCell || this.board[this.selectedCell.colIdx][this.selectedCell.rowIdx].hasDefaultValue) return;
-    const keyToListen = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
-    if (keyToListen.includes(event.key)) {
-      this.board[this.selectedCell.colIdx][this.selectedCell.rowIdx].value = +event.key;
-      this.sudokuEngine.setValue(this.selectedCell.colIdx, this.selectedCell.rowIdx, +event.key);
+    if (this.possibleKey.includes(key)) {
+      this.board[this.selectedCell.colIdx][this.selectedCell.rowIdx].value = +key;
+      this.sudokuEngine.setValue(this.selectedCell.colIdx, this.selectedCell.rowIdx, +key);
       this.selectedCell.element.classList.add("selected");
     }
-    if (event.key === "0") {
+    if (key === "0") {
       this.selectedCell.element.classList.remove("selected");
       this.selectedCell = null;
     }

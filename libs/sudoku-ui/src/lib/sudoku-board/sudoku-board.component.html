@@ -23,6 +23,7 @@
         <div
           class="border-sm square"
           [ngClass]="['col' + colIdx, 'row' + rowIdx]"
+          [class.by-user]="!row.hasDefaultValue"
         >
           @if (row.value != 0) {
           {{ row.value }}
@@ -30,6 +31,14 @@
         </div>
         }
       </div>
+      }
+    </div>
+    <div class="bottom-keys">
+      @for (key of possibleKey; track $index) {
+      <button (click)="setNewValueToSelectedCell(key)" class="button">
+        {{ key }}
+      </button>
+
       }
     </div>
     <div class="bottom">

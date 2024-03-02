@@ -5,18 +5,10 @@
       <div>
         <div class="sub-title">Generate new board:</div>
         <div class="btn-group">
-          <sudoku-angular-button (click)="onClickGenerate('easy')">
-            Easy
-          </sudoku-angular-button>
-          <sudoku-angular-button (click)="onClickGenerate('medium')">
-            Medium
-          </sudoku-angular-button>
-          <sudoku-angular-button (click)="onClickGenerate('hard')">
-            Hard
-          </sudoku-angular-button>
-          <sudoku-angular-button (click)="onClickGenerate('random')">
-            Random
-          </sudoku-angular-button>
+          <sud-button (click)="onClickGenerate('easy')"> Easy </sud-button>
+          <sud-button (click)="onClickGenerate('medium')"> Medium </sud-button>
+          <sud-button (click)="onClickGenerate('hard')"> Hard </sud-button>
+          <sud-button (click)="onClickGenerate('random')"> Random </sud-button>
         </div>
       </div>
     </div>
@@ -39,28 +31,23 @@
     </div>
     <div class="bottom-keys">
       @for (key of possibleKey; track $index) {
-      <sudoku-angular-button
-        (click)="setNewValueToSelectedCell(key)"
-        class="button"
-      >
+      <sud-button (click)="setNewValueToSelectedCell(key)" class="button">
         {{ key }}
-      </sudoku-angular-button>
+      </sud-button>
 
       }
     </div>
     <div class="bottom">
       <div class="btn-group">
-        <sudoku-angular-button class="button" (click)="onClickValidate()">
+        <sud-button class="button" (click)="onClickValidate()">
           Validate
-        </sudoku-angular-button>
-        <sudoku-angular-button class="button" (click)="onCickSolve()">
-          Solve
-        </sudoku-angular-button>
+        </sud-button>
+        <sud-button class="button" (click)="onCickSolve()"> Solve </sud-button>
       </div>
       <div class="bottom-status">
         <div>
           Status:
-          <sudoku-angular-badge
+          <sud-badge
             [color]="
               status === 'unsolved'
                 ? 'default'
@@ -70,13 +57,13 @@
             "
           >
             {{ status }}
-          </sudoku-angular-badge>
+          </sud-badge>
         </div>
         <div>
           Difficulty:
-          <sudoku-angular-badge>
+          <sud-badge>
             {{ difficulty }}
-          </sudoku-angular-badge>
+          </sud-badge>
         </div>
       </div>
     </div>

@@ -18,7 +18,7 @@ type BoardCell = {
 }
 
 @Component({
-  selector: 'sudoku-angular-sudoku-board',
+  selector: 'sud-board',
   standalone: true,
   imports: [CommonModule, ButtonComponent, BadgeComponent],
   templateUrl: './sudoku-board.component.html',

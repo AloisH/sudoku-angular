@@ -21,7 +21,7 @@
           "error",
           {
             "type": "element",
-            "prefix": "sudoku-angular",
+            "prefix": ["sudoku-angular", "sud"],
             "style": "kebab-case"
           }
         ]

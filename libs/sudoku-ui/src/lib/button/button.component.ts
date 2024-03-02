@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'sudoku-angular-button',
+  selector: 'sud-button',
   standalone: true,
   imports: [CommonModule],
   templateUrl: './button.component.html',

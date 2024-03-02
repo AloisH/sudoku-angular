@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { NxWelcomeComponent } from './nx-welcome.component';
+import { SudokuBoardComponent } from "@sudoku-angular/sudoku-ui"
 
 @Component({
   standalone: true,
-  imports: [NxWelcomeComponent, RouterModule],
+  imports: [RouterModule, SudokuBoardComponent],
   selector: 'sudoku-angular-root',
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',

@@ -5,7 +5,7 @@ import { firstValueFrom } from "rxjs";
 
 @Injectable({ providedIn: "root" })
 export class SudokuEngine {
-  private board: number[][];
+  board: number[][];
   private status: BoardStatus;
   private difficulty: BoardDifficulty;
 

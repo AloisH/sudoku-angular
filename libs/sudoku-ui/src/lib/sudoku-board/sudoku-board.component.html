@@ -16,7 +16,7 @@
         </div>
       </div>
     </div>
-    <div>
+    <div class="board-cells">
       @for (col of board; track colIdx; let colIdx = $index) {
       <div class="board-line">
         @for (row of col; track rowIdx; let rowIdx = $index) {
@@ -32,24 +32,24 @@
       </div>
       }
     </div>
-  </div>
-  <div class="bottom">
-    <div class="btn-group">
-      <button class="button" (click)="onClickValidate()">Validate</button>
-      <button class="button" (click)="onCickSolve()">Solve</button>
-    </div>
-    <div class="bottom-status">
-      <div>
-        Status:
-        <span class="badge">
-          {{ status }}
-        </span>
+    <div class="bottom">
+      <div class="btn-group">
+        <button class="button" (click)="onClickValidate()">Validate</button>
+        <button class="button" (click)="onCickSolve()">Solve</button>
       </div>
-      <div>
-        Difficulty:
-        <span class="badge">
-          {{ difficulty }}
-        </span>
+      <div class="bottom-status">
+        <div>
+          Status:
+          <span class="badge">
+            {{ status }}
+          </span>
+        </div>
+        <div>
+          Difficulty:
+          <span class="badge">
+            {{ difficulty }}
+          </span>
+        </div>
       </div>
     </div>
   </div>

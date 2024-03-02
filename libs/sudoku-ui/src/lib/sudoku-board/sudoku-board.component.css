@@ -1,6 +1,7 @@
 .main-board {
   display: flex;
   flex-direction: column;
+  padding: 0rem 4rem;
 }
 
 .board {
@@ -12,15 +13,13 @@
   display: flex;
   flex-direction: column;
   /* align-items: center; */
-  padding-bottom: 4rem;
+  padding-bottom: 2rem;
 }
 
 .bottom {
-  padding-top: 4rem;
+  padding-top: 2rem;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: space-around;
 }
 
 .board-line {
@@ -30,14 +29,13 @@
   width: 100%;
 }
 
+.board-cells {
+  max-height: 80vh;
+  max-width: min(80vw, 600px);
+}
+
 .square {
-  max-height: 6rem;
-  max-width: 6rem;
   font-size: 2.5rem;
-
-
-  min-height: 3rem;
-  min-width: 3rem;
   flex: 1 1 0;
   aspect-ratio: 1/1;
   display: flex;

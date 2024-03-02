@@ -14,9 +14,11 @@
   flex: 1 1 0;
 }
 
+.button:disabled {
+  background-color: #555a60;
+}
 
-
-.button:hover {
+.button:hover:enabled {
   cursor: pointer;
   background-color: #334155;
 }

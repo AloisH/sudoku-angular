@@ -5,10 +5,24 @@
       <div>
         <div class="sub-title">Generate new board:</div>
         <div class="btn-group">
-          <sud-button (click)="onClickGenerate('easy')"> Easy </sud-button>
-          <sud-button (click)="onClickGenerate('medium')"> Medium </sud-button>
-          <sud-button (click)="onClickGenerate('hard')"> Hard </sud-button>
-          <sud-button (click)="onClickGenerate('random')"> Random </sud-button>
+          <sud-button (click)="onClickGenerate('easy')" [disabled]="isLoading">
+            Easy
+          </sud-button>
+          <sud-button
+            (click)="onClickGenerate('medium')"
+            [disabled]="isLoading"
+          >
+            Medium
+          </sud-button>
+          <sud-button (click)="onClickGenerate('hard')" [disabled]="isLoading">
+            Hard
+          </sud-button>
+          <sud-button
+            (click)="onClickGenerate('random')"
+            [disabled]="isLoading"
+          >
+            Random
+          </sud-button>
         </div>
       </div>
     </div>
@@ -31,7 +45,11 @@
     </div>
     <div class="bottom-keys">
       @for (key of possibleKey; track $index) {
-      <sud-button (click)="setNewValueToSelectedCell(key)" class="button">
+      <sud-button
+        (click)="setNewValueToSelectedCell(key)"
+        class="button"
+        [disabled]="isLoading"
+      >
         {{ key }}
       </sud-button>
 
@@ -39,10 +57,20 @@
     </div>
     <div class="bottom">
       <div class="btn-group">
-        <sud-button class="button" (click)="onClickValidate()">
+        <sud-button
+          class="button"
+          (click)="onClickValidate()"
+          [disabled]="isLoading"
+        >
           Validate
         </sud-button>
-        <sud-button class="button" (click)="onCickSolve()"> Solve </sud-button>
+        <sud-button
+          class="button"
+          (click)="onCickSolve()"
+          [disabled]="isLoading"
+        >
+          Solve
+        </sud-button>
       </div>
       <div class="bottom-status">
         <div>

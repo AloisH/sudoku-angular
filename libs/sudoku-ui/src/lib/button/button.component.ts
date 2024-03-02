@@ -1,5 +1,6 @@
+import { Component, Input } from '@angular/core';
+
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
 
 @Component({
   selector: 'sud-button',
@@ -8,4 +9,7 @@ import { Component } from '@angular/core';
   templateUrl: './button.component.html',
   styleUrl: './button.component.css',
 })
-export class ButtonComponent { }
+export class ButtonComponent {
+  @Input() disabled = false;
+
+}

@@ -29,6 +29,7 @@ export class SudokuBoardComponent {
   selectedCell: SelectedCell | null;
   status: BoardStatus;
   difficulty: BoardDifficulty;
+  isLoading: boolean;
 
   possibleKey = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
 
@@ -42,19 +43,25 @@ export class SudokuBoardComponent {
     this.sudokuEngine.setNewBoard("easy");
     this.status = "unsolved";
     this.difficulty = "random";
+    this.isLoading = false;
   }
 
-  onClickGenerate(difficulty: BoardDifficulty) {
-    this.sudokuEngine.setNewBoard(difficulty);
+  async onClickGenerate(difficulty: BoardDifficulty) {
+    this.isLoading = true;
+    await this.sudokuEngine.setNewBoard(difficulty);
+    this.isLoading = false;
   }
 
-  onClickValidate() {
-    console.log("OnClickValide");
-    this.sudokuEngine.validateBoard();
+  async onClickValidate() {
+    this.isLoading = true;
+    await this.sudokuEngine.validateBoard();
+    this.isLoading = false;
   }
 
-  onCickSolve() {
-    this.sudokuEngine.solveBoard();
+  async onCickSolve() {
+    this.isLoading = true;
+    await this.sudokuEngine.solveBoard();
+    this.isLoading = false;
   }
 
   onClickBoard($event: Event) {
@@ -92,6 +99,7 @@ export class SudokuBoardComponent {
   }
 
   setNewValueToSelectedCell(key: string) {
+    if (this.isLoading) return;
     if (!this.selectedCell || this.board[this.selectedCell.colIdx][this.selectedCell.rowIdx].hasDefaultValue) return;
     if (this.possibleKey.includes(key)) {
       this.board[this.selectedCell.colIdx][this.selectedCell.rowIdx].value = +key;

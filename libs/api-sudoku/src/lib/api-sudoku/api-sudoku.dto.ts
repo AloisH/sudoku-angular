@@ -7,7 +7,7 @@ export type Board = {
 }
 
 export type BoardSolved = {
-  board: number[][],
+  solution: number[][],
   difficulty: BoardDifficulty,
   status: BoardStatus,
 }

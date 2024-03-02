@@ -1,18 +1,24 @@
 import { ApiSudoku, BoardDifficulty, BoardStatus } from "@sudoku-angular/api-sudoku";
+import { BehaviorSubject, firstValueFrom } from "rxjs";
 
 import { Injectable } from "@angular/core";
-import { firstValueFrom } from "rxjs";
 
 @Injectable({ providedIn: "root" })
 export class SudokuEngine {
-  board: number[][];
+  board$: BehaviorSubject<number[][]>;
+  private board: number[][];
   private status: BoardStatus;
+  status$: BehaviorSubject<BoardStatus>;
   private difficulty: BoardDifficulty;
+  difficulty$: BehaviorSubject<BoardDifficulty>;
 
   constructor(private readonly apiSudoku: ApiSudoku) {
     this.board = this.initBoard();
+    this.board$ = new BehaviorSubject(this.board);
     this.status = "unsolved";
+    this.status$ = new BehaviorSubject<BoardStatus>(this.status);
     this.difficulty = "random";
+    this.difficulty$ = new BehaviorSubject<BoardDifficulty>(this.difficulty);
   }
 
   initBoard(): number[][] {
@@ -46,20 +52,29 @@ export class SudokuEngine {
   async setNewBoard(difficulty: BoardDifficulty) {
     const { board } = await firstValueFrom(this.apiSudoku.getBoard(difficulty));
     this.board = board;
+    this.board$.next(board);
     this.difficulty = difficulty;
+    this.difficulty$.next(this.difficulty);
     this.status = "unsolved";
+    this.status$.next(this.status);
   }
 
   async solveBoard() {
-    const { board, status, difficulty } = await firstValueFrom(this.apiSudoku.solveBoard({ board: this.board }));
-    this.board = board;
+    const { solution, status, difficulty } = await firstValueFrom(this.apiSudoku.solveBoard({ board: this.board }));
+    this.board = solution;
+    this.board$.next(this.board);
     this.difficulty = difficulty;
+    this.difficulty$.next(this.difficulty);
     this.status = status;
+    this.status$.next(this.status);
   }
 
   async validateBoard() {
     const { status } = await firstValueFrom(this.apiSudoku.validateBoard({ board: this.board }));
     this.status = status;
+    console.log(this.board);
+    console.log("VALIDATING..", status);
+    this.status$.next(this.status);
   }
 
 

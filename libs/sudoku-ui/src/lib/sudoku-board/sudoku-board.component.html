@@ -1,5 +1,14 @@
 <div class="board">
-  <h1 class="title">Sudoku</h1>
+  <div class="top">
+    <h1 class="title">Sudoku</h1>
+    <p>
+      Generate:
+      <button (click)="onClickGenerate('easy')">Easy</button>
+      <button (click)="onClickGenerate('medium')">Medium</button>
+      <button (click)="onClickGenerate('hard')">Hard</button>
+      <button (click)="onClickGenerate('random')">Random</button>
+    </p>
+  </div>
   <div class="main-board" (click)="onClickBoard($event)">
     @for (col of board; track colIdx; let colIdx = $index) {
     <div class="board-line">
@@ -8,13 +17,19 @@
         class="border-sm square"
         [ngClass]="['col' + colIdx, 'row' + rowIdx]"
       >
-        @if (row != 0) {
-        {{ row }}
+        @if (row.value != 0) {
+        {{ row.value }}
         }
       </div>
       }
     </div>
-
     }
+  </div>
+  <div class="bottom">
+    <p>
+      <button (click)="onClickValidate()">Validate</button>
+      <button (click)="onCickSolve()">Solve</button>
+    </p>
+    <p>Status: {{ status }}, Difficulty: {{ difficulty }}</p>
   </div>
 </div>

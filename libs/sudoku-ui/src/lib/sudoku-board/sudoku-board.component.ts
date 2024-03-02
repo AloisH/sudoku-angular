@@ -1,3 +1,4 @@
+import { BoardDifficulty, BoardStatus } from '@sudoku-angular/api-sudoku';
 import { Component, HostListener } from '@angular/core';
 
 import { CommonModule } from '@angular/common';
@@ -9,6 +10,11 @@ type SelectedCell = {
   element: HTMLElement;
 }
 
+type BoardCell = {
+  value: number;
+  hasDefaultValue: boolean;
+}
+
 @Component({
   selector: 'sudoku-angular-sudoku-board',
   standalone: true,
@@ -17,18 +23,42 @@ type SelectedCell = {
   styleUrl: './sudoku-board.component.css',
 })
 export class SudokuBoardComponent {
-  board: number[][] = [];
+  board: BoardCell[][] = [];
   selectedCell: SelectedCell | null;
+  status: BoardStatus;
+  difficulty: BoardDifficulty;
 
   constructor(private sudokuEngine: SudokuEngine) {
-    this.board = this.sudokuEngine.board;
+    this.sudokuEngine.board$.subscribe((board) => {
+      this.board = board.map((col) => col.map((row): BoardCell => ({ value: row, hasDefaultValue: row !== 0 })));
+    });
+    this.sudokuEngine.difficulty$.subscribe((difficulty) => this.difficulty = difficulty);
+    this.sudokuEngine.status$.subscribe((status) => this.status = status);
     this.selectedCell = null;
+    this.sudokuEngine.setNewBoard("easy");
+    this.status = "unsolved";
+    this.difficulty = "random";
+  }
+
+  onClickGenerate(difficulty: BoardDifficulty) {
+    this.sudokuEngine.setNewBoard(difficulty);
+  }
+
+  onClickValidate() {
+    console.log("OnClickValide");
+    this.sudokuEngine.validateBoard();
+  }
+
+  onCickSolve() {
+    this.sudokuEngine.solveBoard();
   }
 
   onClickBoard($event: Event) {
     console.log("Clicked");
     const srcElement = $event.target as HTMLElement;
     if (!srcElement) return;
+    if (!srcElement.classList.contains("square")) return;
+
     if (this.selectedCell) {
       this.selectedCell.element.classList.remove("selected");
     }
@@ -54,19 +84,16 @@ export class SudokuBoardComponent {
 
   @HostListener('document:keypress', ['$event'])
   handleKeyboardEvent(event: KeyboardEvent) {
-    if (!this.selectedCell) return;
+    if (!this.selectedCell || this.board[this.selectedCell.colIdx][this.selectedCell.rowIdx].hasDefaultValue) return;
     const keyToListen = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
     if (keyToListen.includes(event.key)) {
-      this.board[this.selectedCell.colIdx][this.selectedCell.rowIdx] = +event.key;
+      this.board[this.selectedCell.colIdx][this.selectedCell.rowIdx].value = +event.key;
+      this.sudokuEngine.setValue(this.selectedCell.colIdx, this.selectedCell.rowIdx, +event.key);
       this.selectedCell.element.classList.add("selected");
     }
     if (event.key === "0") {
-      console.log("Hello!")
       this.selectedCell.element.classList.remove("selected");
       this.selectedCell = null;
     }
   }
-
-
-
 }

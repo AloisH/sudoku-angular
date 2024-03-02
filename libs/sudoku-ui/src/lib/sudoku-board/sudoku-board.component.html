@@ -5,14 +5,18 @@
       <div>
         <div class="sub-title">Generate new board:</div>
         <div class="btn-group">
-          <button class="button" (click)="onClickGenerate('easy')">Easy</button>
-          <button class="button" (click)="onClickGenerate('medium')">
+          <sudoku-angular-button (click)="onClickGenerate('easy')">
+            Easy
+          </sudoku-angular-button>
+          <sudoku-angular-button (click)="onClickGenerate('medium')">
             Medium
-          </button>
-          <button class="button" (click)="onClickGenerate('hard')">Hard</button>
-          <button class="button" (click)="onClickGenerate('random')">
+          </sudoku-angular-button>
+          <sudoku-angular-button (click)="onClickGenerate('hard')">
+            Hard
+          </sudoku-angular-button>
+          <sudoku-angular-button (click)="onClickGenerate('random')">
             Random
-          </button>
+          </sudoku-angular-button>
         </div>
       </div>
     </div>
@@ -35,29 +39,44 @@
     </div>
     <div class="bottom-keys">
       @for (key of possibleKey; track $index) {
-      <button (click)="setNewValueToSelectedCell(key)" class="button">
+      <sudoku-angular-button
+        (click)="setNewValueToSelectedCell(key)"
+        class="button"
+      >
         {{ key }}
-      </button>
+      </sudoku-angular-button>
 
       }
     </div>
     <div class="bottom">
       <div class="btn-group">
-        <button class="button" (click)="onClickValidate()">Validate</button>
-        <button class="button" (click)="onCickSolve()">Solve</button>
+        <sudoku-angular-button class="button" (click)="onClickValidate()">
+          Validate
+        </sudoku-angular-button>
+        <sudoku-angular-button class="button" (click)="onCickSolve()">
+          Solve
+        </sudoku-angular-button>
       </div>
       <div class="bottom-status">
         <div>
           Status:
-          <span class="badge">
+          <sudoku-angular-badge
+            [color]="
+              status === 'unsolved'
+                ? 'default'
+                : status === 'broken'
+                ? 'danger'
+                : 'success'
+            "
+          >
             {{ status }}
-          </span>
+          </sudoku-angular-badge>
         </div>
         <div>
           Difficulty:
-          <span class="badge">
+          <sudoku-angular-badge>
             {{ difficulty }}
-          </span>
+          </sudoku-angular-badge>
         </div>
       </div>
     </div>

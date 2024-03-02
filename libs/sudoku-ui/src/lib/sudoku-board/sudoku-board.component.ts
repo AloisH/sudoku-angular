@@ -1,6 +1,8 @@
 import { BoardDifficulty, BoardStatus } from '@sudoku-angular/api-sudoku';
 import { Component, HostListener } from '@angular/core';
 
+import { BadgeComponent } from '../badge/badge.component';
+import { ButtonComponent } from '../button/button.component';
 import { CommonModule } from '@angular/common';
 import { SudokuEngine } from '@sudoku-angular/sudoku-engine';
 
@@ -18,7 +20,7 @@ type BoardCell = {
 @Component({
   selector: 'sudoku-angular-sudoku-board',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, ButtonComponent, BadgeComponent],
   templateUrl: './sudoku-board.component.html',
   styleUrl: './sudoku-board.component.css',
 })

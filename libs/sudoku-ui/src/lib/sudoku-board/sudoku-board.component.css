@@ -1,25 +1,30 @@
+.main-board {
+  display: flex;
+  flex-direction: column;
+}
+
 .board {
   display: flex;
   flex-direction: column;
 }
 
-.title {
-  padding: 1rem 1rem;
-}
-
 .top {
   display: flex;
-  align-items: center;
-  justify-content: space-around;
+  flex-direction: column;
+  /* align-items: center; */
+  padding-bottom: 4rem;
 }
 
 .bottom {
+  padding-top: 4rem;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: space-around;
 }
 
 .board-line {
+  flex: 1 1 0;
   display: flex;
   justify-content: center;
   width: 100%;
@@ -70,4 +75,43 @@
 
 .selected {
   background-color: aqua;
+}
+
+.button {
+  color: white;
+  background: #0F172A;
+  border: none;
+  border-radius: 6px;
+  padding: 0.5rem 1rem;
+  max-width: 120px;
+  font-size: 1.5rem;
+  flex: 1 1 0;
+}
+
+.button:hover {
+  cursor: pointer;
+  background-color: #334155;
+}
+
+.sub-title {
+  font-size: 1.5rem;
+}
+
+.btn-group {
+  display: flex;
+  gap: 1rem;
+}
+
+
+.badge {
+  padding: 0.25rem 0.5rem;
+  background-color: #6c757d;
+  color: white;
+  border-radius: 6px;
+}
+
+.bottom-status {
+  padding-top: 1rem;
+  display: flex;
+  gap: 1rem;
 }

@@ -1,35 +1,56 @@
 <div class="board">
-  <div class="top">
-    <h1 class="title">Sudoku</h1>
-    <p>
-      Generate:
-      <button (click)="onClickGenerate('easy')">Easy</button>
-      <button (click)="onClickGenerate('medium')">Medium</button>
-      <button (click)="onClickGenerate('hard')">Hard</button>
-      <button (click)="onClickGenerate('random')">Random</button>
-    </p>
-  </div>
   <div class="main-board" (click)="onClickBoard($event)">
-    @for (col of board; track colIdx; let colIdx = $index) {
-    <div class="board-line">
-      @for (row of col; track rowIdx; let rowIdx = $index) {
-      <div
-        class="border-sm square"
-        [ngClass]="['col' + colIdx, 'row' + rowIdx]"
-      >
-        @if (row.value != 0) {
-        {{ row.value }}
+    <div class="board-line top">
+      <h1 class="title">Sudoku</h1>
+      <div>
+        <div class="sub-title">Generate new board:</div>
+        <div class="btn-group">
+          <button class="button" (click)="onClickGenerate('easy')">Easy</button>
+          <button class="button" (click)="onClickGenerate('medium')">
+            Medium
+          </button>
+          <button class="button" (click)="onClickGenerate('hard')">Hard</button>
+          <button class="button" (click)="onClickGenerate('random')">
+            Random
+          </button>
+        </div>
+      </div>
+    </div>
+    <div>
+      @for (col of board; track colIdx; let colIdx = $index) {
+      <div class="board-line">
+        @for (row of col; track rowIdx; let rowIdx = $index) {
+        <div
+          class="border-sm square"
+          [ngClass]="['col' + colIdx, 'row' + rowIdx]"
+        >
+          @if (row.value != 0) {
+          {{ row.value }}
+          }
+        </div>
         }
       </div>
       }
     </div>
-    }
   </div>
   <div class="bottom">
-    <p>
-      <button (click)="onClickValidate()">Validate</button>
-      <button (click)="onCickSolve()">Solve</button>
-    </p>
-    <p>Status: {{ status }}, Difficulty: {{ difficulty }}</p>
+    <div class="btn-group">
+      <button class="button" (click)="onClickValidate()">Validate</button>
+      <button class="button" (click)="onCickSolve()">Solve</button>
+    </div>
+    <div class="bottom-status">
+      <div>
+        Status:
+        <span class="badge">
+          {{ status }}
+        </span>
+      </div>
+      <div>
+        Difficulty:
+        <span class="badge">
+          {{ difficulty }}
+        </span>
+      </div>
+    </div>
   </div>
 </div>

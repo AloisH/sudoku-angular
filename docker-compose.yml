@@ -5,5 +5,5 @@ services:
       context: .
       dockerfile: ./apps/sudoku-angular/Dockerfile
     ports:
-      - '80:4200'
+      - '4201:4201'
     container_name: sudoku

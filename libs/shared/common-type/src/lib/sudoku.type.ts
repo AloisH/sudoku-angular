@@ -1,6 +1,10 @@
-export type BoardDifficulty = "easy" | "medium" | "hard" | "random";
+import { z } from "zod";
 
-export type BoardStatus = "solved" | "unsolved" | "broken";
+export const BoardDifficultySchema = z.enum(["easy", "medium", "hard", "random"]);
+export type BoardDifficulty = z.infer<typeof BoardDifficultySchema>;
+
+export const BoardStatusSchema = z.enum(["solved", "unsolved", "broken"]);
+export type BoardStatus = z.infer<typeof BoardStatusSchema>;
 
 export enum BoardCellType {
   USER_INPUT,

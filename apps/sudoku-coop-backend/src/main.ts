@@ -3,10 +3,11 @@
  * This is only a minimal backend to get started.
  */
 
-import { BoardCell, BoardInformation, UpdateBoardMessage, UpdateBoardStatus } from "@sudoku-angular/common-type";
+import { BoardInformation, BoardInformationSchema, UpdateBoardMessage, UpdateBoardMessageSchema, UpdateBoardStatus, UpdateBoardStatusSchema } from "@sudoku-angular/common-type";
 
 import { Server } from "socket.io";
 import express from 'express';
+import { z } from "zod";
 
 const app = express();
 
@@ -45,6 +46,7 @@ io.on('connection', async (socket) => {
 
 
   socket.on('init-board', (board: BoardInformation) => {
+    if (!BoardInformationSchema.safeParse(board).success) return;
     if (rooms[roomId] == null) {
       rooms[roomId] = {
         roomId,
@@ -56,6 +58,7 @@ io.on('connection', async (socket) => {
 
 
   socket.on('new-board', (board: BoardInformation) => {
+    if (!BoardInformationSchema.safeParse(board).success) return;
     if (!rooms[roomId]) {
       rooms[roomId] = {
         roomId,
@@ -66,12 +69,14 @@ io.on('connection', async (socket) => {
   })
 
   socket.on('update-board', (msg: UpdateBoardMessage) => {
+    if (!UpdateBoardMessageSchema.safeParse(msg).success) return;
     if (!rooms[roomId]) return;
     rooms[roomId].board.board[msg.x][msg.y].value = msg.value;
     io.to(roomId).emit('update-board', msg);
   });
 
   socket.on('update-status', (msg: UpdateBoardStatus) => {
+    if (!UpdateBoardStatusSchema.safeParse(msg).success) return;
     io.to(roomId).emit('update-status', msg);
   });
 });

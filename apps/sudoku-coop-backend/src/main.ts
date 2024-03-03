@@ -3,7 +3,7 @@
  * This is only a minimal backend to get started.
  */
 
-import { BoardCell, UpdateBoardMessage, UpdateBoardStatus } from "@sudoku-angular/common-type";
+import { BoardCell, BoardInformation, UpdateBoardMessage, UpdateBoardStatus } from "@sudoku-angular/common-type";
 
 import { Server } from "socket.io";
 import express from 'express';
@@ -12,7 +12,7 @@ const app = express();
 
 export type Room = {
   roomId: string;
-  board: BoardCell[][]
+  board: BoardInformation
 }
 
 app.get('/api', (req, res) => {
@@ -44,7 +44,7 @@ io.on('connection', async (socket) => {
   await socket.join(roomId);
 
 
-  socket.on('init-board', (board: BoardCell[][]) => {
+  socket.on('init-board', (board: BoardInformation) => {
     if (rooms[roomId] == null) {
       rooms[roomId] = {
         roomId,
@@ -55,7 +55,7 @@ io.on('connection', async (socket) => {
   });
 
 
-  socket.on('new-board', (board: BoardCell[][]) => {
+  socket.on('new-board', (board: BoardInformation) => {
     if (!rooms[roomId]) {
       rooms[roomId] = {
         roomId,
@@ -66,9 +66,8 @@ io.on('connection', async (socket) => {
   })
 
   socket.on('update-board', (msg: UpdateBoardMessage) => {
-    if (!rooms[roomId]) {
-      rooms[roomId].board[msg.x][msg.y].value = msg.value;
-    }
+    if (!rooms[roomId]) return;
+    rooms[roomId].board.board[msg.x][msg.y].value = msg.value;
     io.to(roomId).emit('update-board', msg);
   });
 

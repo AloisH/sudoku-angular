@@ -78,4 +78,9 @@ export class SudokuCoop {
     this.socket.emit("update-status", msg);
   }
 
+  disconnect() {
+    this.socket?.disconnect();
+    this.socket = null;
+  }
+
 }

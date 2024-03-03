@@ -91,9 +91,16 @@
 
     <div class="login">
       <label>Coop Mode</label>
-      <input class="input" [(ngModel)]="roomId" placeholder="roomId" />
+      <input
+        class="input"
+        [(ngModel)]="roomId"
+        placeholder="roomId"
+        [disabled]="coopEnable"
+      />
       <div>
-        <sud-button (click)="onClickLogin()">Se connecter</sud-button>
+        <sud-button (click)="onClickLogin()">{{
+          coopEnable ? 'Disconnect' : 'Connect'
+        }}</sud-button>
       </div>
     </div>
   </div>

@@ -29,6 +29,7 @@ export class SudokuBoardComponent {
   difficulty: BoardDifficulty;
   isLoading: boolean;
   roomId: string;
+  coopEnable: boolean;
 
   possibleKey = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
 
@@ -44,6 +45,7 @@ export class SudokuBoardComponent {
     this.difficulty = "random";
     this.isLoading = false;
     this.roomId = "";
+    this.coopEnable = false;
   }
 
   async onClickGenerate(difficulty: BoardDifficulty) {
@@ -112,6 +114,12 @@ export class SudokuBoardComponent {
   }
 
   onClickLogin() {
-    this.sudokuEngine.initCoop(this.roomId);
+    if (this.coopEnable) {
+      this.sudokuEngine.disconnectCoop();
+      this.coopEnable = false;
+    } else {
+      this.sudokuEngine.initCoop(this.roomId);
+      this.coopEnable = true;
+    }
   }
 }

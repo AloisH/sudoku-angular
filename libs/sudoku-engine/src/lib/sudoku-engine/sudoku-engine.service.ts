@@ -128,4 +128,8 @@ export class SudokuEngine {
   initCoop(roomId: string) {
     this.sudokuCoop.init(roomId, { board: this.board, difficulty: this.difficulty, status: this.status });
   }
+
+  disconnectCoop() {
+    this.sudokuCoop.disconnect();
+  }
 }

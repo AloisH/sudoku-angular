@@ -15,10 +15,12 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@sudoku-angular/api-sudoku": ["libs/api-sudoku/src/index.ts"],
+      "@sudoku-angular/api-sudoku": ["libs/frontend/api-sudoku/src/index.ts"],
       "@sudoku-angular/common-type": ["libs/shared/common-type/src/index.ts"],
-      "@sudoku-angular/sudoku-engine": ["libs/sudoku-engine/src/index.ts"],
-      "@sudoku-angular/sudoku-ui": ["libs/sudoku-ui/src/index.ts"]
+      "@sudoku-angular/sudoku-engine": [
+        "libs/frontend/sudoku-engine/src/index.ts"
+      ],
+      "@sudoku-angular/sudoku-ui": ["libs/frontend/sudoku-ui/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

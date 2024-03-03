@@ -1,0 +1,24 @@
+:host {
+  flex: 1 1 0;
+  max-width: 120px;
+}
+
+.button {
+  color: white;
+  background: #0f172a;
+  border: none;
+  border-radius: 6px;
+  width: 100%;
+  padding: 0.5rem 1rem;
+  font-size: 1.5rem;
+  flex: 1 1 0;
+}
+
+.button:disabled {
+  background-color: #555a60;
+}
+
+.button:hover:enabled {
+  cursor: pointer;
+  background-color: #334155;
+}

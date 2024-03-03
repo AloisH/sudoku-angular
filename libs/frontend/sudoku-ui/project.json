@@ -1,0 +1,9 @@
+{
+  "name": "sudoku-ui",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/frontend/sudoku-ui/src",
+  "prefix": ["sudoku-angular", "sud"],
+  "tags": [],
+  "projectType": "library",
+  "targets": {}
+}

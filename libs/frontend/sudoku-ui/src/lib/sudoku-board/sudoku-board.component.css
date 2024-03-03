@@ -1,0 +1,127 @@
+.main-board {
+  display: flex;
+  flex-direction: column;
+  padding: 0rem 4rem;
+}
+
+.board {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.top {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 2rem;
+}
+
+.bottom {
+  padding-top: 2rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.board-line {
+  flex: 1 1 0;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.board-cells {
+  max-height: 80vh;
+  max-width: min(100%, 600px);
+}
+
+.square {
+  font-size: 2.5rem;
+  flex: 1 1 0;
+  min-width: 2.5rem;
+  min-height: 2.5rem;
+  aspect-ratio: 1/1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.border-sm {
+  border: 1px solid #000000;
+}
+
+.row0 {
+  border-left: 5px solid #000000;
+}
+
+.col0 {
+  border-top: 5px solid #000000;
+}
+
+.col8 {
+  border-bottom: 5px solid #000000;
+}
+
+.row8 {
+  border-right: 5px solid #000000;
+}
+
+.row2,
+.row5 {
+  border-right: 4px solid #000000;
+}
+
+.col2,
+.col5 {
+  border-bottom: 4px solid #000000;
+}
+
+.selected {
+  background-color: rgb(186, 216, 254);
+}
+
+.by-user {
+  color: rgb(95, 95, 254);
+}
+
+.by-solver {
+  color: rgb(121, 251, 89);
+}
+
+.sub-title {
+  font-size: 1.5rem;
+}
+
+.btn-group {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.bottom-status {
+  padding-top: 1rem;
+  display: flex;
+  gap: 1rem;
+}
+
+.bottom-keys {
+  padding-top: 1rem;
+  display: flex;
+  max-width: min(100%, 600px);
+  gap: 0.5rem;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.login {
+  display: flex;
+  flex-direction: column;
+
+  padding-top: 4rem;
+}
+
+.input {
+  padding: 1rem 0.5rem;
+  border: #adadad 1px solid;
+  border-radius: 0.25rem;
+  font-size: 1rem;
+}

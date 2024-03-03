@@ -3,6 +3,8 @@
  * This is only a minimal backend to get started.
  */
 
+import { BoardCell, UpdateBoardMessage, UpdateBoardStatus } from "@sudoku-angular/sudoku-engine";
+
 import { Server } from "socket.io";
 import express from 'express';
 
@@ -10,7 +12,7 @@ const app = express();
 
 export type Room = {
   roomId: string;
-  board: number[][]
+  board: BoardCell[][]
 }
 
 app.get('/api', (req, res) => {
@@ -42,41 +44,32 @@ io.on('connection', async (socket) => {
   await socket.join(roomId);
 
 
-  socket.on('init-board', (msg) => {
+  socket.on('init-board', (board: BoardCell[][]) => {
     if (rooms[roomId] == null) {
-      console.log("override roomID");
       rooms[roomId] = {
         roomId,
-        board: msg.board
+        board
       }
     }
-    io.to(roomId).emit("init-board", { board: rooms[roomId] });
+    io.to(roomId).emit("init-board", rooms[roomId].board);
   });
 
 
-  socket.on('new-board', (msg) => {
+  socket.on('new-board', (board: BoardCell[][]) => {
     if (!rooms[roomId]) {
       rooms[roomId] = {
         roomId,
-        board: msg.board
+        board
       }
     }
-    io.to(roomId).emit(msg);
+    io.to(roomId).emit('new-board', board);
   })
 
-  socket.on('update-board', (msg) => {
-    console.log(msg);
-    io.to(roomId).emit(msg);
-  });
-  socket.on('update-select', (msg) => {
-    console.log(msg);
+  socket.on('update-board', (msg: UpdateBoardMessage) => {
+    io.to(roomId).emit('update-board', msg);
   });
 
-  socket.on('connect_error', function (err) {
-    console.log("client connect_error: ", err);
-  });
-
-  socket.on('connect_timeout', function (err) {
-    console.log("client connect_timeout: ", err);
+  socket.on('update-status', (msg: UpdateBoardStatus) => {
+    io.to(roomId).emit('update-status', msg);
   });
 });

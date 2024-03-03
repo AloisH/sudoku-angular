@@ -1,8 +1,8 @@
 import { ApiSudoku, BoardDifficulty, BoardStatus } from "@sudoku-angular/api-sudoku";
 import { BehaviorSubject, firstValueFrom } from "rxjs";
+import { BoardInformation, SudokuCoop, UpdateBoardMessage } from "./sudoku-coop.service";
 
 import { Injectable } from "@angular/core";
-import { SudokuCoop } from "./sudoku-coop.service";
 
 export enum BoardCellType {
   USER_INPUT,
@@ -32,10 +32,25 @@ export class SudokuEngine {
     this.difficulty = "random";
     this.difficulty$ = new BehaviorSubject<BoardDifficulty>(this.difficulty);
 
-    this.sudokuCoop.initBoard$.subscribe((boardCoop: BoardCell[][] | null) => {
+    this.sudokuCoop.coopBoard$.subscribe((boardCoop: BoardInformation | null) => {
       if (!boardCoop) return;
-      this.board = boardCoop;
+      this.board = boardCoop.board;
       this.board$.next(this.board);
+      this.status = boardCoop.status;
+      this.status$.next(boardCoop.status);
+      this.difficulty = boardCoop.difficulty;
+      this.difficulty$.next(this.difficulty);
+    });
+
+    this.sudokuCoop.newValue$.subscribe((newValue: UpdateBoardMessage | null) => {
+      if (!newValue) return;
+      this.setValue(newValue.x, newValue.y, newValue.value, false);
+    });
+
+    this.sudokuCoop.newStatus$.subscribe((newStatus) => {
+      if (!newStatus) return;
+      this.status = newStatus.status;
+      this.status$.next(this.status);
     })
   }
 
@@ -54,7 +69,7 @@ export class SudokuEngine {
     return board;
   }
 
-  setValue(x: number, y: number, value: number) {
+  setValue(x: number, y: number, value: number, shouldEmit = true) {
     if (x < 0 || x > 9) {
       throw new Error("X must be between 0 and 9");
     }
@@ -67,8 +82,9 @@ export class SudokuEngine {
       throw new Error("Value must be between 0 and 9");
     }
 
-    this.sudokuCoop.emitUpdateBoard({ x, y, value });
     this.board[x][y] = { value, type: BoardCellType.USER_INPUT };
+    if (shouldEmit)
+      this.sudokuCoop.emitUpdateBoard({ x, y, value });
   }
 
   async setNewBoard(difficulty: BoardDifficulty) {
@@ -78,12 +94,13 @@ export class SudokuEngine {
         value: value,
         type: value === 0 ? BoardCellType.USER_INPUT : BoardCellType.DEFAULT
       }
-    }))
+    }));
     this.board$.next(this.board);
     this.difficulty = difficulty;
     this.difficulty$.next(this.difficulty);
     this.status = "unsolved";
     this.status$.next(this.status);
+    this.sudokuCoop.emitNewBoard({ board: this.board, status: this.status, difficulty: this.difficulty });
   }
 
   async solveBoard() {
@@ -98,15 +115,17 @@ export class SudokuEngine {
     this.difficulty$.next(this.difficulty);
     this.status = status;
     this.status$.next(this.status);
+    this.sudokuCoop.emitNewBoard({ board: this.board, difficulty: this.difficulty, status: this.status });
   }
 
   async validateBoard() {
     const { status } = await firstValueFrom(this.apiSudoku.validateBoard({ board: this.board.map((col) => col.map(value => value.value)) }));
     this.status = status;
     this.status$.next(this.status);
+    this.sudokuCoop.emitNewStatus({ status: this.status });
   }
 
   initCoop(roomId: string) {
-    this.sudokuCoop.init(roomId, this.board);
+    this.sudokuCoop.init(roomId, { board: this.board, difficulty: this.difficulty, status: this.status });
   }
 }

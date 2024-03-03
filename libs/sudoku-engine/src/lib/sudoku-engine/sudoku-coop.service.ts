@@ -1,26 +1,8 @@
-import { BoardDifficulty, BoardStatus } from '@sudoku-angular/api-sudoku';
+import { BoardInformation, UpdateBoardMessage, UpdateBoardStatus } from '@sudoku-angular/common-type';
 import { Socket, io } from 'socket.io-client';
 
 import { BehaviorSubject } from 'rxjs';
-import { BoardCell } from './sudoku-engine.service';
 import { Injectable } from "@angular/core";
-
-export type UpdateBoardMessage = {
-  x: number,
-  y: number,
-  value: number
-}
-
-export type UpdateBoardStatus = {
-  status: BoardStatus
-}
-
-export type BoardInformation = {
-  board: BoardCell[][],
-  status: BoardStatus,
-  difficulty: BoardDifficulty,
-}
-
 
 @Injectable({ providedIn: "root" })
 export class SudokuCoop {

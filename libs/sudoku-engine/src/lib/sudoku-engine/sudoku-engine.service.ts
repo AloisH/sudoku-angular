@@ -1,24 +1,14 @@
-import { ApiSudoku, BoardDifficulty, BoardStatus } from "@sudoku-angular/api-sudoku";
 import { BehaviorSubject, firstValueFrom } from "rxjs";
-import { BoardInformation, SudokuCoop, UpdateBoardMessage } from "./sudoku-coop.service";
+import { BoardCell, BoardCellType, BoardDifficulty, BoardInformation, BoardStatus, UpdateBoardMessage } from "@sudoku-angular/common-type";
 
+import { ApiSudoku } from "@sudoku-angular/api-sudoku";
 import { Injectable } from "@angular/core";
-
-export enum BoardCellType {
-  USER_INPUT,
-  SOLVER,
-  DEFAULT,
-}
-
-export type BoardCell = {
-  value: number;
-  type: BoardCellType;
-}
+import { SudokuCoop } from "./sudoku-coop.service";
 
 @Injectable({ providedIn: "root" })
 export class SudokuEngine {
-  board$: BehaviorSubject<BoardCell[][]>;
   private board: BoardCell[][];
+  board$: BehaviorSubject<BoardCell[][]>;
   private status: BoardStatus;
   status$: BehaviorSubject<BoardStatus>;
   private difficulty: BoardDifficulty;

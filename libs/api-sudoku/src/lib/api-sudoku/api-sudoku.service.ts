@@ -1,5 +1,6 @@
-import { Board, BoardDifficulty, BoardDifficultyResult, BoardSolved, BoardStatusResult } from "./api-sudoku.dto";
+import { Board, BoardDifficultyResult, BoardSolved, BoardStatusResult } from "./api-sudoku.dto";
 
+import { BoardDifficulty } from "@sudoku-angular/common-type";
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";

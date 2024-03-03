@@ -1,6 +1,4 @@
-export type BoardDifficulty = "easy" | "medium" | "hard" | "random";
-
-export type BoardStatus = "solved" | "unsolved" | "broken";
+import { BoardDifficulty, BoardStatus } from "@sudoku-angular/common-type"
 
 export type Board = {
   board: number[][],

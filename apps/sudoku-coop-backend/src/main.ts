@@ -3,7 +3,7 @@
  * This is only a minimal backend to get started.
  */
 
-import { BoardCell, UpdateBoardMessage, UpdateBoardStatus } from "@sudoku-angular/sudoku-engine";
+import { BoardCell, UpdateBoardMessage, UpdateBoardStatus } from "@sudoku-angular/common-type";
 
 import { Server } from "socket.io";
 import express from 'express';

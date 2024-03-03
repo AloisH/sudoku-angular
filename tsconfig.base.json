@@ -16,6 +16,7 @@
     "baseUrl": ".",
     "paths": {
       "@sudoku-angular/api-sudoku": ["libs/api-sudoku/src/index.ts"],
+      "@sudoku-angular/common-type": ["libs/shared/common-type/src/index.ts"],
       "@sudoku-angular/sudoku-engine": ["libs/sudoku-engine/src/index.ts"],
       "@sudoku-angular/sudoku-ui": ["libs/sudoku-ui/src/index.ts"]
     }

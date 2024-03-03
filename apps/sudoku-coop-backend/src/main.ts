@@ -66,6 +66,9 @@ io.on('connection', async (socket) => {
   })
 
   socket.on('update-board', (msg: UpdateBoardMessage) => {
+    if (!rooms[roomId]) {
+      rooms[roomId].board[msg.x][msg.y].value = msg.value;
+    }
     io.to(roomId).emit('update-board', msg);
   });
 

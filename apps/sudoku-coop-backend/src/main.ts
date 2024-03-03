@@ -7,7 +7,6 @@ import { BoardInformation, BoardInformationSchema, UpdateBoardMessage, UpdateBoa
 
 import { Server } from "socket.io";
 import express from 'express';
-import { z } from "zod";
 
 const app = express();
 

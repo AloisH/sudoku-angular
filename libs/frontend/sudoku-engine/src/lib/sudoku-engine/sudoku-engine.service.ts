@@ -113,15 +113,10 @@ export class SudokuEngine {
   }
 
   async solveBoard() {
-    const { solution, status, difficulty } = await firstValueFrom(
-      this.apiSudoku.solveBoard({
-        board: this.board.map((col) =>
-          col.map((value) =>
-            value.type === BoardCellType.DEFAULT ? value.value : 0
-          )
-        ),
-      })
-    );
+    const { solution, status, difficulty } = await firstValueFrom(this.apiSudoku.solveBoard({
+      board: this.board.map((col) => col.map(value => value.value))
+    }));
+
     this.board = solution.map((col, colIdx) =>
       col.map(
         (value, rowIdx): BoardCell => ({

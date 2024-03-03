@@ -111,9 +111,9 @@ export class SudokuBoardComponent {
     if (
       !this.selectedCell ||
       this.board[this.selectedCell.colIdx][this.selectedCell.rowIdx].type ===
-        BoardCellType.DEFAULT ||
-      this.board[this.selectedCell.colIdx][this.selectedCell.rowIdx].type ===
-        BoardCellType.SOLVER
+      BoardCellType.DEFAULT ||
+      (this.board[this.selectedCell.colIdx][this.selectedCell.rowIdx].type ===
+        BoardCellType.SOLVER && this.status === "solved")
     )
       return;
     if (this.possibleKey.includes(key)) {

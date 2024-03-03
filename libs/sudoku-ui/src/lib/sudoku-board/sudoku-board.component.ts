@@ -1,10 +1,11 @@
+import { BoardCell, BoardCellType, SudokuEngine } from '@sudoku-angular/sudoku-engine';
 import { BoardDifficulty, BoardStatus } from '@sudoku-angular/api-sudoku';
 import { Component, HostListener } from '@angular/core';
 
 import { BadgeComponent } from '../badge/badge.component';
 import { ButtonComponent } from '../button/button.component';
 import { CommonModule } from '@angular/common';
-import { SudokuEngine } from '@sudoku-angular/sudoku-engine';
+import { FormsModule } from '@angular/forms';
 
 type SelectedCell = {
   colIdx: number;
@@ -12,30 +13,28 @@ type SelectedCell = {
   element: HTMLElement;
 }
 
-type BoardCell = {
-  value: number;
-  hasDefaultValue: boolean;
-}
-
 @Component({
   selector: 'sud-board',
   standalone: true,
-  imports: [CommonModule, ButtonComponent, BadgeComponent],
+  imports: [CommonModule, FormsModule, ButtonComponent, BadgeComponent],
   templateUrl: './sudoku-board.component.html',
   styleUrl: './sudoku-board.component.css',
 })
 export class SudokuBoardComponent {
+  BoardCellType = BoardCellType;
+
   board: BoardCell[][] = [];
   selectedCell: SelectedCell | null;
   status: BoardStatus;
   difficulty: BoardDifficulty;
   isLoading: boolean;
+  roomId: string;
 
   possibleKey = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
 
   constructor(private sudokuEngine: SudokuEngine) {
     this.sudokuEngine.board$.subscribe((board) => {
-      this.board = board.map((col) => col.map((row): BoardCell => ({ value: row, hasDefaultValue: row !== 0 })));
+      this.board = board;
     });
     this.sudokuEngine.difficulty$.subscribe((difficulty) => this.difficulty = difficulty);
     this.sudokuEngine.status$.subscribe((status) => this.status = status);
@@ -44,6 +43,7 @@ export class SudokuBoardComponent {
     this.status = "unsolved";
     this.difficulty = "random";
     this.isLoading = false;
+    this.roomId = "";
   }
 
   async onClickGenerate(difficulty: BoardDifficulty) {
@@ -65,7 +65,6 @@ export class SudokuBoardComponent {
   }
 
   onClickBoard($event: Event) {
-    console.log("Clicked");
     const srcElement = $event.target as HTMLElement;
     if (!srcElement) return;
     if (!srcElement.classList.contains("square")) return;
@@ -100,7 +99,7 @@ export class SudokuBoardComponent {
 
   setNewValueToSelectedCell(key: string) {
     if (this.isLoading) return;
-    if (!this.selectedCell || this.board[this.selectedCell.colIdx][this.selectedCell.rowIdx].hasDefaultValue) return;
+    if (!this.selectedCell || this.board[this.selectedCell.colIdx][this.selectedCell.rowIdx].type === BoardCellType.DEFAULT || this.board[this.selectedCell.colIdx][this.selectedCell.rowIdx].type === BoardCellType.SOLVER) return;
     if (this.possibleKey.includes(key)) {
       this.board[this.selectedCell.colIdx][this.selectedCell.rowIdx].value = +key;
       this.sudokuEngine.setValue(this.selectedCell.colIdx, this.selectedCell.rowIdx, +key);
@@ -110,5 +109,9 @@ export class SudokuBoardComponent {
       this.selectedCell.element.classList.remove("selected");
       this.selectedCell = null;
     }
+  }
+
+  onClickLogin() {
+    this.sudokuEngine.initCoop(this.roomId);
   }
 }

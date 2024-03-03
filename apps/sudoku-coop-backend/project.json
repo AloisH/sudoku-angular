@@ -1,0 +1,24 @@
+{
+  "name": "sudoku-coop-backend",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/sudoku-coop-backend/src",
+  "projectType": "application",
+  "targets": {
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "sudoku-coop-backend:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "sudoku-coop-backend:build:development"
+        },
+        "production": {
+          "buildTarget": "sudoku-coop-backend:build:production"
+        }
+      }
+    }
+  },
+  "tags": []
+}

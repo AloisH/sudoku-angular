@@ -81,6 +81,10 @@
   color: rgb(95, 95, 254);
 }
 
+.by-solver {
+  color: rgb(121, 251, 89);
+}
+
 .sub-title {
   font-size: 1.5rem;
 }
@@ -104,4 +108,18 @@
   gap: 0.5rem;
   justify-content: space-between;
   flex-wrap: wrap;
+}
+
+.login {
+  display: flex;
+  flex-direction: column;
+
+  padding-top: 4rem;
+}
+
+.input {
+  padding: 1rem 0.5rem;
+  border: #adadad 1px solid;
+  border-radius: 0.25rem;
+  font-size: 1rem;
 }

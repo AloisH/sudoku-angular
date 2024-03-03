@@ -58,11 +58,9 @@ io.on('connection', async (socket) => {
 
   socket.on('new-board', (board: BoardInformation) => {
     if (!BoardInformationSchema.safeParse(board).success) return;
-    if (!rooms[roomId]) {
-      rooms[roomId] = {
-        roomId,
-        board
-      }
+    rooms[roomId] = {
+      roomId,
+      board
     }
     io.to(roomId).emit('new-board', board);
   })

@@ -34,8 +34,12 @@
           class="border-sm square"
           [ngClass]="['col' + colIdx, 'row' + rowIdx]"
           [class.by-user]="row.type === BoardCellType.USER_INPUT"
-          [class.by-solver-solved]="row.type === BoardCellType.SOLVER"
-          [class.by-solver-unsolvable]="row.type === BoardCellType.SOLVER"
+          [class.by-solver-solved]="
+            row.type === BoardCellType.SOLVER && status === 'solved'
+          "
+          [class.by-solver-unsolvable]="
+            row.type === BoardCellType.SOLVER && status === 'unsolved'
+          "
         >
           @if (row.value != 0) {
           {{ row.value }}
